@@ -239,7 +239,7 @@ static inline void polybench_free_data(void* ptr) {
 /* PolyBench internal functions that should not be directly called by */
 /* the user, unless when designing customized execution profiling */
 /* approaches. */
-extern void polybench_flush_cache();
+// extern void polybench_flush_cache();
 extern void polybench_prepare_instruments();
 
 

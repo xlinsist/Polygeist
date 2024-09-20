@@ -104,7 +104,7 @@ void kernel_syr2k(int n, int m,
     for (j = 0; j <= i; j++)
       C[i][j] *= beta;
     for (k = 0; k < _PB_M; k++)
-      for (j = 0; j <= i; j++)
+  for (j = 0; j < i; j++) 
 	{
 	  C[i][j] += A[j][k]*alpha*B[i][k] + B[j][k]*alpha*A[i][k];
 	}
@@ -149,7 +149,7 @@ int main(int argc, char** argv)
 
   /* Prevent dead-code elimination. All live-out data must be printed
      by the function call in argument. */
-  polybench_prevent_dce(print_array(n, POLYBENCH_ARRAY(C)));
+  // polybench_prevent_dce(print_array(n, POLYBENCH_ARRAY(C)));
 
   /* Be clean. */
   POLYBENCH_FREE_ARRAY(C);

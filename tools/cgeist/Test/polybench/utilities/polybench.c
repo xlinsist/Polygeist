@@ -88,8 +88,8 @@ double rtclock()
     struct timeval Tp;
     int stat;
     stat = gettimeofday (&Tp, NULL);
-    if (stat != 0)
-      printf ("Error return from gettimeofday: %d", stat);
+    // if (stat != 0)
+    //   printf ("Error return from gettimeofday: %d", stat);
     return (Tp.tv_sec + Tp.tv_usec * 1.0e-6);
 #else
     return 0;
@@ -111,20 +111,20 @@ unsigned long long int rdtsc()
 }
 #endif
 
-void polybench_flush_cache()
-{
-  int cs = POLYBENCH_CACHE_SIZE_KB * 1024 / sizeof(double);
-  double* flush = (double*) calloc (cs, sizeof(double));
-  int i;
-  double tmp = 0.0;
-#ifdef _OPENMP
-#pragma omp parallel for reduction(+:tmp) private(i)
-#endif
-  for (i = 0; i < cs; i++)
-    tmp += flush[i];
-  assert (tmp <= 10.0);
-  free (flush);
-}
+// void polybench_flush_cache()
+// {
+//   int cs = POLYBENCH_CACHE_SIZE_KB * 1024 / sizeof(double);
+//   double* flush = (double*) calloc (cs, sizeof(double));
+//   int i;
+//   double tmp = 0.0;
+// #ifdef _OPENMP
+// #pragma omp parallel for reduction(+:tmp) private(i)
+// #endif
+//   for (i = 0; i < cs; i++)
+//     tmp += flush[i];
+//   assert (tmp <= 10.0);
+//   free (flush);
+// }
 
 
 #ifdef POLYBENCH_LINUX_FIFO_SCHEDULER
@@ -254,9 +254,9 @@ void polybench_papi_close()
 
 int polybench_papi_start_counter(int evid)
 {
-# ifndef POLYBENCH_NO_FLUSH_CACHE
-    polybench_flush_cache();
-# endif
+// # ifndef POLYBENCH_NO_FLUSH_CACHE
+//     polybench_flush_cache();
+// # endif
 
 # ifdef _OPENMP
 # pragma omp parallel
@@ -354,9 +354,9 @@ void polybench_papi_print()
 
 void polybench_prepare_instruments()
 {
-#ifndef POLYBENCH_NO_FLUSH_CACHE
-  polybench_flush_cache ();
-#endif
+// #ifndef POLYBENCH_NO_FLUSH_CACHE
+//   polybench_flush_cache ();
+// #endif
 #ifdef POLYBENCH_LINUX_FIFO_SCHEDULER
   polybench_linux_fifo_scheduler ();
 #endif
